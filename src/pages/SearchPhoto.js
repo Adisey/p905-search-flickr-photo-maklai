@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 // Styles
 import './styles.css';
 // Components
-import { SearchBar } from '../components';
+import { SearchBar, ImagesList } from '../components';
 import flickrImg from '../static/flickr.png';
 
 class SearchPhoto extends Component {
     constructor () {
         super();
         this.state = {
-            device:    'Desktop',
+            device:    { type: 'Desktop', columns: 5 },
             strSearch: '',
             page:      1,
-            photos:    {},
+            photos:    [],
         };
     }
 
@@ -27,12 +27,13 @@ class SearchPhoto extends Component {
 
     updateDimensions () {
         const width =  window.innerWidth;
-        let device =  "Desktop";
+        let device =  { type: 'Desktop', columns: 5 };
+        // ToDo: column to delete
 
         if (width<=320) {
-            device = "Phone";
+            device = { type: 'Phone', columns: 3 };
         } else if (width<=768) {
-            device = "Tablet";
+            device = { type: 'Tablet', columns: 1 };
         }
         if (this.state.device !==device) {
             this.setState({ device });
@@ -55,10 +56,11 @@ class SearchPhoto extends Component {
     };
 
     render () {
-        const { device } = this.state;
+        const { device, photos } = this.state;
 
         console.log(`Main render -> "device" -> `, device);
         console.log(` -> "this.state" -> `, this.state);
+        console.log(` -> "this.state.photos.lenght" -> `, this.state.photos.length);
 
         return (
             <div className = 'main'>
@@ -67,8 +69,10 @@ class SearchPhoto extends Component {
                     device = { device }
                     search = { this._searchImage }
                 />
-                <div>1</div>
-                <div>2</div>
+                <ImagesList
+                    device = { device }
+                    photos = { photos }
+                />
             </div>
         );
     }

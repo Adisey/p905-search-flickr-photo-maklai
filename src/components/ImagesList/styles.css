@@ -1,0 +1,31 @@
+.photosListBox {
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    Justify-content: space-between;
+    margin: 5px;
+    padding: 5px;
+    /*border: 1px solid #a07dc1;*/
+    /*border-radius: 2px;*/
+    /*box-shadow: 0 0 6px 1px #c1c1c1;*/
+    flex-wrap: wrap;
+}
+.photosBox {
+    height: 50px;
+    width: 50px;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #c1c1c1;
+    border-radius: 2px;
+    box-shadow: 0 0 6px 1px #c1c1c1;
+}
+
+.photosBoxDesktop {
+    width: 17%;
+}
+.photosBoxTablet {
+    width: 31%;
+}
+.photosBoxPhone {
+    width: 100%;
+}

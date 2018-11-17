@@ -1,6 +1,6 @@
 //Core
 import React, { Component, createRef } from "react";
-import { func, string } from "prop-types";
+import { func, object } from "prop-types";
 // Styles
 import './styles.css';
 import 'antd/dist/antd.css';
@@ -15,7 +15,7 @@ const FormItem = Form.Item;
 
 export class SearchBar extends Component {
     static propTypes = {
-        device: string.isRequired,
+        device: object.isRequired,
         search: func.isRequired,
     };
 
@@ -70,7 +70,7 @@ export class SearchBar extends Component {
                                             disabled = { !isValid }
                                             icon = 'search'
                                             type = 'primary'
-                                            onClick = { _submitForm }>Найти</Button>
+                                            onClick = { _submitForm }>{device.type === 'Desktop'?'Найти':''}</Button>
                                     </div>
                                 </div>
                             );
