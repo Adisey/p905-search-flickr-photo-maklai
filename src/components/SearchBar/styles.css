@@ -1,0 +1,21 @@
+.searchBarDesktop {
+    margin: 20px;
+    border: 1px solid #c1c1c1;
+    border-radius: 3px;
+    padding-top: 20px;
+    box-shadow: 0 0 6px 1px #c1c1c1;
+}
+.searchForm {
+    display: flex;
+    flex-direction: row;
+    Justify-content: center;
+    /*border: 1px solid #19ff2a;*/
+}
+.searchFormField {
+    /*border: 1px solid #1622c1;*/
+    width: 500px;
+}
+.searchFormButton {
+    /*border: 1px solid #c11db8;*/
+    padding: 3px;
+}
