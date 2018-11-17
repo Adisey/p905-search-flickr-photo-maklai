@@ -1,9 +1,12 @@
+// Core
 import React, { Component } from 'react';
 // Styles
 import './styles.css';
 // Components
 import { SearchBar, ImagesList } from '../components';
 import flickrImg from '../static/flickr.png';
+// Instruments
+import { api } from "../REST/api";
 
 class SearchPhoto extends Component {
     constructor () {
@@ -37,7 +40,6 @@ class SearchPhoto extends Component {
         }
         if (this.state.device !==device) {
             this.setState({ device });
-
         }
     }
 
@@ -48,11 +50,40 @@ class SearchPhoto extends Component {
         for (let t=0; t<10; t++) {
             tempPhotots[t] = { id: t };
         }
+        this._fetchPhotosAsync(strSearch);
         this.setState({
             strSearch,
             page:   1,
-            photos: tempPhotots,
+            // photos: tempPhotots,
         });
+    };
+
+    _fetchPhotosAsync = async (strSearch) => {
+        try {
+            // ToDo: Spiner
+            const data = await api.searchPhoto(strSearch);
+
+            console.log(`_fetchPhotosAsync -> "data" -> `, data);
+            const photos = await data.photos.photo.map((p) => {
+                const newP = {};
+
+                newP.id = p.id;
+                newP.title = p.title;
+                newP.url = `https://farm${p.farm}.staticflickr.com/${p.server}/${p.id}_${p.secret}_n.jpg`;
+
+                return newP;
+            });
+
+            console.log(`_fetchPhotosAsync -> "photos" -> `, photos);
+            this.setState({
+                photos,
+            });
+
+        } catch ({ message }) {
+            console.error(message);
+        } finally {
+            // ToDo: Spiner Stop
+        }
     };
 
     render () {

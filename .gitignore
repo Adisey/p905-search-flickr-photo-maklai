@@ -17,6 +17,10 @@
 # ide
 /.idea
 
+# key
+/src/REST/key
+
+
 # misc
 .DS_Store
 .env.local
@@ -33,6 +37,3 @@ yarn-error.log*
 .idea/modules.xml
 .idea/p905-search-flickr-photo-maklai.iml
 .idea/workspace.xml
-src/REST/
-src/components/SearchBar/shapes.js
-src/static/

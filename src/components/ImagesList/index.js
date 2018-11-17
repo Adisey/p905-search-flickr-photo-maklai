@@ -28,7 +28,8 @@ export class ImagesList extends Component {
 
             return (
                 <div className = { `photosBox ${deviceStyle}` } key = { p.id }>
-                    {p.id}
+                    <img alt = { p.title } height = '100' src = { p.url } width = '100' />
+                    {p.title}
                 </div>
             );
         });
