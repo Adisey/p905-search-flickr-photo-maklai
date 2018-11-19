@@ -36,11 +36,14 @@ II. Подгрузка «show more»:
 http://adisey.zzz.com.ua/
 
 * Валидация в строке кода
+
 ![Валидация в строке кода](https://raw.githubusercontent.com/Adisey/p905-search-flickr-photo-maklai/master/demo/validation.png)
 
 * Результат на телефоне
+
 ![Результат на телефоне](https://raw.githubusercontent.com/Adisey/p905-search-flickr-photo-maklai/master/demo/phonepreview.png)
 
 * Результат на Desktop
+
 ![Результат на Desktop](https://raw.githubusercontent.com/Adisey/p905-search-flickr-photo-maklai/master/demo/desktoppreview.png)
 
