@@ -1,18 +1,52 @@
-.searchBarDesktop {
-    margin: 20px;
+.searchBarH1 {
+    margin-top: 10px;
+}
+.searchBarStart {
+    background-color: white;
     border: 1px solid #c1c1c1;
     border-radius: 3px;
-    padding-top: 20px;
     box-shadow: 0 0 6px 1px #c1c1c1;
 }
+
+.searchBarSearched {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    border-bottom: 1px solid #c1c1c1;
+    box-shadow: 0 0 6px 1px #c1c1c1;
+}
+
+.searchSubBar {
+    display: flex;
+    flex-direction: row;
+    Justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.searchSubBarStart {
+    flex-direction: column;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
 .searchForm {
     display: flex;
     flex-direction: row;
     Justify-content: center;
+    padding: 10px;
+    padding-bottom: 0;
 }
-.searchFormField {
+
+.searchFormFieldDesktop {
     width: 450px;
 }
+
+.searchFormField {
+    width: 200px;
+}
+
 .searchFormButton {
     padding: 3px;
 }

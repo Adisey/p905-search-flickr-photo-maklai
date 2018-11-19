@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import './styles.css';
 // Components
 import { SearchBar, ImagesList } from '../components';
-import flickrImg from '../static/flickr.png';
 // Instruments
 import { api } from "../REST/api";
 
@@ -12,59 +11,76 @@ class SearchPhoto extends Component {
     constructor () {
         super();
         this.state = {
-            device:    { type: 'Desktop', columns: 5 },
-            strSearch: '',
-            page:      1,
-            photos:    [],
+            isSpinner:    false,
+            device:       { type: 'Desktop', columns: 5 },
+            searchString: '',
+            page:         0,
+            photos:       [],
+            loadPhotos:   0,
+            totalPhotos:  0,
         };
     }
 
     componentDidMount () {
         this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions.bind(this));
+        window.addEventListener('scroll', this.handleScroll);
     }
 
     componentWillUnmount () {
         window.removeEventListener("resize", this.updateDimensions.bind(this));
+        window.removeEventListener('scroll', this.handleScroll);
     }
+    handleScroll = () => {
+        // console.log(` -> "window.scrollY;" -> `, window.scrollY);
+    };
+
+    spinning =(isSpinner) => {
+        this.setState({ isSpinner });
+
+    };
 
     updateDimensions () {
-        const width =  window.innerWidth;
-        let device =  { type: 'Desktop', columns: 5 };
+        const width = window.innerWidth;
+        let device = { type: 'Desktop', columns: 5 };
         // ToDo: column to delete
 
-        if (width<=320) {
+        if (width <= 320) {
             device = { type: 'Phone', columns: 3 };
-        } else if (width<=768) {
+        } else if (width <= 768) {
             device = { type: 'Tablet', columns: 1 };
         }
-        if (this.state.device !==device) {
+        if (this.state.device !== device) {
             this.setState({ device });
         }
     }
 
-    _searchImage = (strSearch) => {
-        console.log(`Main -> "strSearch" -> `, strSearch);
-        const tempPhotots = [];
-
-        for (let t=0; t<10; t++) {
-            tempPhotots[t] = { id: t };
-        }
-        this._fetchPhotosAsync(strSearch);
+    _searchImage = (searchString) => {
         this.setState({
-            strSearch,
-            page:   1,
-            // photos: tempPhotots,
-        });
+            // photos:      [],
+            page:        0,
+            loadPhotos:  0,
+            totalPhotos: 0,
+            searchString,
+        }, this._fetchPhotosAsync);
+
     };
 
-    _fetchPhotosAsync = async (strSearch) => {
-        try {
-            // ToDo: Spiner
-            const data = await api.searchPhoto(strSearch);
+    _fetchPhotosAsync = async () => {
+        const { searchString } = this.state;
+        let { photos, loadPhotos, totalPhotos, page } = this.state;
 
-            console.log(`_fetchPhotosAsync -> "data" -> `, data);
-            const photos = await data.photos.photo.map((p) => {
+        photos = page ? photos : [];
+        const nextPage = page+1;
+
+        try {
+            this.spinning(true);
+            const data = await api.fetchPhoto(searchString, nextPage);
+
+            loadPhotos += Number(data.photos.photo.length);
+            totalPhotos = Number(data.photos.total);
+            page = Number(data.photos.page);
+            const newPhotos = await data.photos.photo.map((p) => {
                 const newP = {};
 
                 newP.id = p.id;
@@ -74,36 +90,50 @@ class SearchPhoto extends Component {
                 return newP;
             });
 
-            console.log(`_fetchPhotosAsync -> "photos" -> `, photos);
-            this.setState({
-                photos,
-            });
+            photos = photos.concat(newPhotos);
 
-        } catch ({ message }) {
+        } catch
+        ({ message }) {
             console.error(message);
         } finally {
-            // ToDo: Spiner Stop
+            this.setState({
+                photos,
+                page,
+                loadPhotos,
+                totalPhotos,
+            });
+            this.spinning(false);
+
         }
     };
 
     render () {
-        const { device, photos } = this.state;
-
-        console.log(`Main render -> "device" -> `, device);
-        console.log(` -> "this.state" -> `, this.state);
-        console.log(` -> "this.state.photos.lenght" -> `, this.state.photos.length);
+        const { device, photos, loadPhotos, totalPhotos, searchString, isSpinner } = this.state;
 
         return (
-            <div className = 'main'>
-                <h1> Поиск на Flickr <img alt = 'flickr' height = '40' src = { flickrImg } /></h1>
+            <div className = { searchString ? 'main ': 'main mainCenter' }>
                 <SearchBar
                     device = { device }
+                    isSpinner = { isSpinner }
+                    loadPhotos = { loadPhotos }
                     search = { this._searchImage }
+                    searchString = { searchString }
+                    totalPhotos = { totalPhotos }
+
                 />
-                <ImagesList
-                    device = { device }
-                    photos = { photos }
-                />
+                {searchString ?
+                    <ImagesList
+                        device = { device }
+                        fetchPhotos = { this._fetchPhotosAsync }
+                        isSpinner = { isSpinner }
+                        loadPhotos = { loadPhotos }
+                        photos = { photos }
+                        searchString = { searchString }
+                        totalPhotos = { totalPhotos }
+                    />
+                    : null
+                }
+                {searchString && !totalPhotos ? <div className = { 'notFound' }>Ничего не найдено !</div> : null}
             </div>
         );
     }

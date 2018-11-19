@@ -7,10 +7,10 @@ const min3          = `Строка поиска содержать миниму
 
 export const searchString = {
     shape: {
-        strSearch: 'Adisey-',
+        searchString: '',
     },
     schema: object().shape({
-        strSearch: string()
+        searchString: string()
             .required(isRequired)
             .min(3, min3)
             .max(50, max50),

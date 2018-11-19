@@ -5,27 +5,48 @@
     Justify-content: space-between;
     margin: 5px;
     padding: 5px;
-    /*border: 1px solid #a07dc1;*/
-    /*border-radius: 2px;*/
-    /*box-shadow: 0 0 6px 1px #c1c1c1;*/
     flex-wrap: wrap;
 }
+
 .photosBox {
-    height: 50px;
-    width: 50px;
-    margin: 5px;
-    padding: 5px;
-    border: 1px solid #c1c1c1;
-    border-radius: 2px;
+    /*border: 1px solid #52c11a;*/
+    margin: 2px;
+    padding: 3px;
+    /*display: flex;*/
+    text-align: center;
+    flex-direction: column;
+    height: fit-content;
+}
+.photosBox:hover {
+    border-radius: 5px;
     box-shadow: 0 0 6px 1px #c1c1c1;
+    background-color: #c1c1c1;
+    transition: 0.5s;
+}
+
+.photosBox:not(:hover) {
+    transition: 0.7s;
+}
+
+.photosBoxP {
+    margin: 2px;
+    font-weight: bold;
 }
 
 .photosBoxDesktop {
     width: 17%;
 }
+
 .photosBoxTablet {
-    width: 31%;
+    width: 30%;
 }
+
 .photosBoxPhone {
     width: 100%;
+}
+
+.previewPhoto {
+    max-width: 100%;
+    height: auto;
+    max-height:100%
 }
