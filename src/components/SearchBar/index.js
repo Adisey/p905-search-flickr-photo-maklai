@@ -37,7 +37,13 @@ export class SearchBar extends Component {
     formikForm = createRef();
 
     render () {
-        const { device, isSpinner, loadPhotos, totalPhotos, searchString: factSearch } = this.props;
+        const {
+            device,
+            isSpinner,
+            loadPhotos,
+            totalPhotos,
+            searchString: factSearch,
+        } = this.props;
 
         return (
 

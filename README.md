@@ -31,19 +31,23 @@ II. Подгрузка «show more»:
 -	Под показанными картинками должна присутствовать кнопка «show more», по нажатию на которую подгружаются следующие 10 картинок. 
 -	Предыдущие 10 не скрываются
 
-###Результат:
+### Результат:
 
 http://adisey.zzz.com.ua/
 
-* Валидация в строке кода
+Сделал с "Подгрузкой «show more»".
+ 
 
+#### Валидация в строке кода
 ![Валидация в строке кода](https://raw.githubusercontent.com/Adisey/p905-search-flickr-photo-maklai/master/demo/validation.png)
 
-* Результат на телефоне
+#### Результат на телефоне
 
 ![Результат на телефоне](https://raw.githubusercontent.com/Adisey/p905-search-flickr-photo-maklai/master/demo/phonepreview.png)
 
-* Результат на Desktop
+#### Результат на Desktop
 
 ![Результат на Desktop](https://raw.githubusercontent.com/Adisey/p905-search-flickr-photo-maklai/master/demo/desktoppreview.png)
 
+
+**PS:  _Делать ли картинки одного размера, это вопрос обсуждения. Дизайнер может захотеть все катринки сделать одного размера, фотограф скажет что в таком случае потеряется композиция. Для дизайнера, можно положить картики в беграунд. Пока оставлю как для фотографа._ ;)** 

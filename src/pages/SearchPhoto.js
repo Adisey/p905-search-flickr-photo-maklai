@@ -7,12 +7,12 @@ import { SearchBar, ImagesList } from '../components';
 // Instruments
 import { api } from "../REST/api";
 
-class SearchPhoto extends Component {
+export default class SearchPhoto extends Component {
     constructor () {
         super();
         this.state = {
             isSpinner:    false,
-            device:       { type: 'Desktop', columns: 5 },
+            device:       { type: 'Desktop' },
             searchString: '',
             page:         0,
             photos:       [],
@@ -24,16 +24,11 @@ class SearchPhoto extends Component {
     componentDidMount () {
         this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions.bind(this));
-        window.addEventListener('scroll', this.handleScroll);
     }
 
     componentWillUnmount () {
         window.removeEventListener("resize", this.updateDimensions.bind(this));
-        window.removeEventListener('scroll', this.handleScroll);
     }
-    handleScroll = () => {
-        // console.log(` -> "window.scrollY;" -> `, window.scrollY);
-    };
 
     spinning =(isSpinner) => {
         this.setState({ isSpinner });
@@ -42,13 +37,12 @@ class SearchPhoto extends Component {
 
     updateDimensions () {
         const width = window.innerWidth;
-        let device = { type: 'Desktop', columns: 5 };
-        // ToDo: column to delete
+        let device = { type: 'Desktop' };
 
         if (width <= 320) {
-            device = { type: 'Phone', columns: 3 };
+            device = { type: 'Phone' };
         } else if (width <= 768) {
-            device = { type: 'Tablet', columns: 1 };
+            device = { type: 'Tablet' };
         }
         if (this.state.device !== device) {
             this.setState({ device });
@@ -57,7 +51,6 @@ class SearchPhoto extends Component {
 
     _searchImage = (searchString) => {
         this.setState({
-            // photos:      [],
             page:        0,
             loadPhotos:  0,
             totalPhotos: 0,
@@ -108,7 +101,14 @@ class SearchPhoto extends Component {
     };
 
     render () {
-        const { device, photos, loadPhotos, totalPhotos, searchString, isSpinner } = this.state;
+        const {
+            device,
+            photos,
+            loadPhotos,
+            totalPhotos,
+            searchString,
+            isSpinner,
+        } = this.state;
 
         return (
             <div className = { searchString ? 'main ': 'main mainCenter' }>
@@ -133,10 +133,8 @@ class SearchPhoto extends Component {
                     />
                     : null
                 }
-                {searchString && !totalPhotos ? <div className = { 'notFound' }>Ничего не найдено !</div> : null}
+                {searchString && !totalPhotos && !isSpinner ? <div className = { 'notFound' }>Ничего не найдено !</div> : null}
             </div>
         );
     }
 }
-
-export default SearchPhoto;
